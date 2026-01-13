@@ -1,0 +1,86 @@
+version: '3.8'
+
+services:
+  # PostgreSQL数据库
+  postgres:
+    image: postgres:15-alpine
+    container_name: ffmpeg-postgres
+    environment:
+      POSTGRES_DB: ffmpeg
+      POSTGRES_USER: ffmpeg
+      POSTGRES_PASSWORD: ffmpeg
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ffmpeg" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis缓存和任务队列
+  redis:
+    image: redis:7-alpine
+    container_name: ffmpeg-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # 后端服务
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ffmpeg-backend
+    ports:
+      - "8008:8008"
+    environment:
+      - SERVER_PORT=8008
+      - DATABASE_DSN=host=postgres user=ffmpeg password=ffmpeg dbname=ffmpeg port=5432 sslmode=disable
+      - REDIS_ADDR=redis:6379
+      # 存储配置
+      - STORAGE_TYPE=qiniu  # 可选: local 或 qiniu
+      - UPLOAD_DIR=/app/storage/uploads
+      - OUTPUT_DIR=/app/storage/outputs
+      # 七牛云配置
+      - QINIU_ENABLED=true
+      - QINIU_ACCESS_KEY=${QINIU_ACCESS_KEY:-ak}
+      - QINIU_SECRET_KEY=${QINIU_SECRET_KEY:-sk}
+      - QINIU_BUCKET=${QINIU_BUCKET:-fangziol}
+      - QINIU_DOMAIN=${QINIU_DOMAIN:-images.fangziol.cn}
+      - QINIU_REGION=${QINIU_REGION:-z2}
+      # FFmpeg配置
+      - FFMPEG_PATH=ffmpeg
+      - FFMPEG_LOG_LEVEL=info
+    volumes:
+      - storage_data:/app/storage
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # 前端服务
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: ffmpeg-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+  storage_data:
