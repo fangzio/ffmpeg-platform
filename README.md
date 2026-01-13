@@ -109,7 +109,7 @@ docker-compose logs -f
 
 服务启动后：
 - 前端: http://localhost
-- 后端API: http://localhost:8080
+- 后端API: http://localhost:8008
 - 数据库: localhost:5432
 - Redis: localhost:6379
 
@@ -155,7 +155,7 @@ npm install
 npm run dev
 ```
 
-前端开发服务器会自动代理 API 请求到 `http://localhost:8080`
+前端开发服务器会自动代理 API 请求到 `http://localhost:8008`
 
 ## 功能演示
 
@@ -251,7 +251,7 @@ file: <binary>
 
 | 变量名 | 说明 | 默认值 |
 |--------|------|--------|
-| `SERVER_PORT` | 服务端口 | `8080` |
+| `SERVER_PORT` | 服务端口 | `8008` |
 | `DATABASE_DSN` | PostgreSQL连接串 | `host=postgres user=ffmpeg password=ffmpeg dbname=ffmpeg port=5432 sslmode=disable` |
 | `REDIS_ADDR` | Redis地址 | `redis:6379` |
 | `UPLOAD_DIR` | 上传目录 | `./storage/uploads` |
