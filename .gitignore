@@ -23,7 +23,10 @@ backend/main
 dist/
 
 # 存储文件
-storage/
+/storage/*
+!/storage/.gitkeep
+/backend/storage/*
+!/backend/storage/.gitkeep
 *.mp4
 *.mov
 *.avi
