@@ -33,6 +33,7 @@ WORKDIR /app
 
 # 从构建阶段复制二进制文件
 COPY --from=builder /app/main .
+COPY --from=builder /app/config.env .
 
 # 创建存储目录
 RUN mkdir -p /app/storage/uploads /app/storage/outputs

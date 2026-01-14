@@ -24,7 +24,7 @@ services:
     image: redis:7-alpine
     container_name: ffmpeg-redis
     ports:
-      - "6379:6379"
+      - "16379:6379"
     volumes:
       - redis_data:/data
     healthcheck:
@@ -44,7 +44,7 @@ services:
     environment:
       - SERVER_PORT=8008
       - DATABASE_DSN=host=postgres user=ffmpeg password=ffmpeg dbname=ffmpeg port=5432 sslmode=disable
-      - REDIS_ADDR=redis:6379
+      - REDIS_ADDR=redis:16379
       # 存储配置
       - STORAGE_TYPE=qiniu  # 可选: local 或 qiniu
       - UPLOAD_DIR=/app/storage/uploads
