@@ -2,9 +2,9 @@ package service
 
 import (
 	"encoding/json"
-	"ffmpeg-platform/config"
-	"ffmpeg-platform/model"
 	"fmt"
+	"github.com/fangzio/ffmpeg-platform/config"
+	"github.com/fangzio/ffmpeg-platform/model"
 	"time"
 
 	"github.com/google/uuid"

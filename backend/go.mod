@@ -1,4 +1,4 @@
-module ffmpeg-platform
+module github.com/fangzio/ffmpeg-platform
 
 go 1.23.6
 

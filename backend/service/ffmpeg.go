@@ -2,11 +2,11 @@ package service
 
 import (
 	"context"
-	"ffmpeg-platform/config"
-	"ffmpeg-platform/model"
-	"ffmpeg-platform/pkg/downloader"
-	"ffmpeg-platform/pkg/ffmpeg"
 	"fmt"
+	"github.com/fangzio/ffmpeg-platform/config"
+	"github.com/fangzio/ffmpeg-platform/model"
+	"github.com/fangzio/ffmpeg-platform/pkg/downloader"
+	"github.com/fangzio/ffmpeg-platform/pkg/ffmpeg"
 	"path/filepath"
 )
 

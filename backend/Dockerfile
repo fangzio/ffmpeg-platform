@@ -3,8 +3,9 @@ FROM golang:1.23.6-alpine AS builder
 
 WORKDIR /app
 
-# 安装构建依赖
-RUN apk add --no-cache git
+RUN go env -w \
+    GOPROXY=https://goproxy.cn \
+    GOSUMDB=sum.golang.google.cn
 
 # 复制依赖文件
 COPY go.mod go.sum ./
@@ -14,7 +15,7 @@ RUN go mod download
 COPY . .
 
 # 构建二进制文件
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
+RUN CGO_ENABLED=0 GOOS=linux go build -o main .
 
 # 运行阶段
 FROM alpine:latest

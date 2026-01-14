@@ -1,9 +1,9 @@
 package handler
 
 import (
-	"ffmpeg-platform/model"
-	"ffmpeg-platform/service"
-	"ffmpeg-platform/worker"
+	"github.com/fangzio/ffmpeg-platform/model"
+	"github.com/fangzio/ffmpeg-platform/service"
+	"github.com/fangzio/ffmpeg-platform/worker"
 	"log"
 	"net/http"
 	"strconv"

@@ -1,14 +1,14 @@
 package main
 
 import (
-	"ffmpeg-platform/api/handler"
-	"ffmpeg-platform/api/middleware"
-	"ffmpeg-platform/config"
-	"ffmpeg-platform/model"
-	"ffmpeg-platform/pkg/storage"
-	"ffmpeg-platform/service"
-	"ffmpeg-platform/worker"
 	"fmt"
+	"github.com/fangzio/ffmpeg-platform/api/handler"
+	"github.com/fangzio/ffmpeg-platform/api/middleware"
+	"github.com/fangzio/ffmpeg-platform/config"
+	"github.com/fangzio/ffmpeg-platform/model"
+	"github.com/fangzio/ffmpeg-platform/pkg/storage"
+	"github.com/fangzio/ffmpeg-platform/service"
+	"github.com/fangzio/ffmpeg-platform/worker"
 	"log"
 	"os"
 	"os/signal"
